@@ -1,0 +1,335 @@
+@font-face {
+  font-family: "Roboto";
+  font-weight: 300;
+  src: url("/assets/fonts/Roboto/woff/roboto-light-webfont.woff2") format("woff2"), url("/assets/fonts/Roboto/woff/roboto-light-webfont.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: 400;
+  src: url("/assets/fonts/Roboto/woff/roboto-regular-webfont.woff2") format("woff2"), url("/assets/fonts/Roboto/woff/roboto-regular-webfont.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: 500;
+  src: url("/assets/fonts/Roboto/woff/roboto-medium-webfont.woff2") format("woff2"), url("/assets/fonts/Roboto/woff/roboto-medium-webfont.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: 700;
+  src: url("/assets/fonts/Roboto/woff/roboto-bold-webfont.woff2") format("woff2"), url("/assets/fonts/Roboto/woff/roboto-bold-webfont.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: 900;
+  src: url("/assets/fonts/Roboto/woff/roboto-black-webfont.woff2") format("woff2"), url("/assets/fonts/Roboto/woff/roboto-black-webfont.woff") format("woff");
+}
+.dropdown {
+  position: relative;
+  outline: solid black 1px;
+  background: blue;
+  width: fit-content;
+  user-select: none;
+  cursor: pointer;
+}
+.dropdown .j-dropdown-trigger {
+  padding: 20px;
+}
+.dropdown .j-dropdown-trigger .j-dropdown-menu {
+  position: absolute;
+  list-style: none;
+  padding: 0;
+  border: solid black 1px;
+  background: red;
+  width: 120px;
+  --mb: 4px;
+  opacity: 0;
+  display: none;
+}
+.dropdown .j-dropdown-trigger .j-dropdown-menu.show {
+  display: block;
+}
+.dropdown .j-dropdown-trigger .j-dropdown-menu .j-dropdown-item {
+  display: block;
+  padding-bottom: var(--mb);
+  padding: 0 16px;
+}
+.dropdown .j-dropdown-trigger .j-dropdown-menu .j-dropdown-item:first-child {
+  padding-top: var(--mb);
+}
+.dropdown .j-dropdown-trigger .j-dropdown-menu .j-dropdown-item:last-child {
+  padding-bottom: var(--mb);
+}
+.dropdown .j-dropdown-trigger .josh {
+  margin: var(--mb) 0;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+
+main {
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  width: fit-content;
+  margin: 0 auto;
+}
+main #top-bar {
+  padding: calc(24px / 2) 24px;
+  background: #5E696D;
+  border-bottom: solid 1px #404B50;
+  display: flex;
+  align-items: center;
+}
+main #top-bar .master-knob-volume {
+  height: 15px;
+  width: 15px;
+  background: #5E696D;
+  background: linear-gradient(0deg, #252F34 0%, #3A4449 100%);
+  border-radius: calc(15px / 2);
+  border: solid 1px #252D31;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  margin-right: 12px;
+}
+main #top-bar .master-knob-volume-line {
+  height: 50%;
+  width: 1px;
+  background: #C2C9CD;
+  margin: 0 auto;
+  border-radius: 1px;
+}
+main #top-bar .master-controls {
+  width: fit-content;
+  display: flex;
+  border-radius: 2px;
+  overflow: hidden;
+  border: solid 1px #252D31;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  margin-right: 12px;
+}
+main #top-bar .master-controls .master-control {
+  all: unset;
+  background: linear-gradient(0deg, #252F34 0%, #3A4449 100%);
+  padding: 3px 4px;
+}
+main #top-bar .master-controls .master-control svg {
+  color: #C2C9CD;
+  height: 15px;
+}
+main #top-bar .master-controls .master-control-play {
+  border-right: solid 1px #252D31;
+}
+main #top-bar .master-controls .master-control-stop {
+  border-right: solid 1px #252D31;
+}
+main #top-bar .master-controls .master-control:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+main #top-bar .bpm-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 78px;
+  padding: 4px 0;
+  background: red;
+  border-radius: 2px;
+  border: solid #7B8E95 1px;
+  background: #BCCFD6;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  margin-right: 12px;
+}
+main #top-bar .bpm-display-value {
+  font-size: 15px;
+  line-height: 1;
+  margin-right: 3px;
+}
+main #top-bar .bpm-display-units {
+  font-size: 8px;
+  margin-top: auto;
+  margin-right: 6px;
+  margin-bottom: 3px;
+}
+main #top-bar .bpm-display-buttons {
+  width: 10px;
+}
+main #top-bar .bpm-display-buttons svg {
+  color: black;
+  height: 10px;
+  cursor: pointer;
+}
+main #top-bar .timing-display {
+  padding: 4px 10px;
+  font-size: 15px;
+  user-select: none;
+  color: #D8F8F9;
+  background: #4F6666;
+  border: solid #3A5151 1px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+main #tracks {
+  border: solid solid 1px #252D31 1px;
+  background: #5E696D;
+  padding: 24px;
+}
+main #tracks .track {
+  display: flex;
+  align-items: center;
+}
+main #tracks .track-led-enable {
+  border: solid 1px #8B9396;
+  height: 12px;
+  width: 12px;
+  border-radius: calc(12px / 2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  margin-right: 10px;
+}
+main #tracks .track-led-enable-inner {
+  height: calc(12px - 2px);
+  width: calc(12px - 2px);
+  border-radius: calc(calc(12px - 2px) / 2);
+  border: solid 1px #252D31;
+  background: linear-gradient(0deg, #DCF7AB 0%, #6EDB00 100%);
+}
+main #tracks .track-led-enable-inner-line {
+  height: 50%;
+  width: 1px;
+  background: white;
+  margin: 0 auto;
+  border-radius: 1px;
+}
+main #tracks .track-knob-volume {
+  height: 16px;
+  width: 16px;
+  background: #5E696D;
+  background: linear-gradient(0deg, rgb(73, 80, 84) 0%, rgb(97, 104, 108) 100%);
+  border-radius: calc(16px / 2);
+  border: solid 1px #252D31;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  margin-right: 10px;
+}
+main #tracks .track-knob-volume-line {
+  height: 50%;
+  width: 1px;
+  background: #C2C9CD;
+  margin: 0 auto;
+  border-radius: 1px;
+}
+main #tracks .track-lock {
+  color: #C2C9CD;
+  margin-right: 10px;
+}
+main #tracks .track-lock .track-lock-icon-locked {
+  display: none;
+}
+main #tracks .track-lock .track-lock-icon-unlocked {
+  display: inline-block;
+}
+main #tracks .track-title-container {
+  position: relative;
+}
+main #tracks .track-title-container label.track-title {
+  display: inline-block;
+  width: 75px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 4px 14px;
+  font-size: 15px;
+  user-select: none;
+  color: white;
+  border-radius: 3px;
+  border: solid 1px #252D31;
+  background: linear-gradient(0deg, rgb(73, 80, 84) 0%, rgb(97, 104, 108) 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  margin-right: 10px;
+}
+main #tracks .track-title-container input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 75px;
+  /* https://www.viget.com/articles/styling-native-file-upload-input-field/ */
+}
+main #tracks .track-title-container input[type=file]::file-selector-button {
+  height: 100%;
+  width: 75px;
+  cursor: pointer;
+  font-size: 0px; /* hide: 'Choose File' */
+  background: transparent;
+  border: none;
+  border-radius: 3px;
+  transition: background-color 150ms ease-in-out;
+}
+main #tracks .track-title-container input[type=file]::file-selector-button:hover {
+  background-color: rgba(145, 165, 175, 0.25);
+}
+main #tracks .track-title-container input[type=file]::file-selector-button:active {
+  background-color: rgba(145, 165, 175, 0.5);
+}
+main #tracks .track .steps {
+  display: inline-flex;
+  height: 40px;
+  gap: 6px;
+}
+main #tracks .track .steps .step {
+  width: 22px;
+  user-select: none;
+  font-size: 11px;
+  border-radius: 3px;
+  border: solid 1px #252D31;
+  background: rgb(75, 83, 86);
+  color: white;
+  transition: transform 0.1s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+main #tracks .track .steps .step-A {
+  background: linear-gradient(0deg, rgb(73, 80, 84) 0%, rgb(97, 104, 108) 100%);
+}
+main #tracks .track .steps .step-A.step-on {
+  background: linear-gradient(0deg, rgb(145, 165, 175) 0%, rgb(193, 213, 223) 100%);
+}
+main #tracks .track .steps .step-B {
+  background: linear-gradient(0deg, rgb(93, 72, 74) 0%, rgb(118, 97, 99) 100%);
+}
+main #tracks .track .steps .step-B.step-on {
+  background: linear-gradient(0deg, rgb(195, 140, 144) 0%, rgb(245, 190, 195) 100%);
+}
+main #tracks .track .steps .step.current {
+  box-shadow: 0 3px 6px rgba(151, 233, 47, 0.16), 0 3px 6px rgba(151, 233, 47, 0.23);
+  transform: scale(1.09);
+}
+main #tracks .track:not(:last-child) {
+  margin-bottom: 10px;
+}
+main #tracks .track.track-locked .step {
+  pointer-events: none;
+}
+main #tracks .track.track-locked .step.current {
+  box-shadow: 0 3px 6px rgba(255, 0, 47, 0.16), 0 3px 6px rgba(151, 233, 47, 0.23);
+  transform: scale(1.09);
+}
+main #tracks .track.track-locked .track-lock .track-lock-icon-locked {
+  display: inline-block;
+}
+main #tracks .track.track-locked .track-lock .track-lock-icon-unlocked {
+  display: none;
+}
+main #tracks .track.track-disabled .step {
+  opacity: 0.25;
+}
+main #tracks .track.track-disabled .track-led-enable-inner {
+  background: linear-gradient(0deg, #70787B 0%, #4E5659 100%);
+}
+
+/*# sourceMappingURL=index.css.map */

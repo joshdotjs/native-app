@@ -1,0 +1,37 @@
+.dropdown { position: relative;
+  outline: solid black 1px;
+  background: blue;
+  width: fit-content;
+  user-select: none;
+  cursor: pointer;
+
+  .j-dropdown-trigger {
+    // background: white;
+    padding: 20px;
+
+    .j-dropdown-menu { position: absolute;
+      list-style: none; 
+      padding: 0;
+      border: solid black 1px;
+      background: red;
+      width: 120px;
+
+      --mb: 4px;
+
+      opacity: 0;
+      display: none;
+      &.show {
+        display: block;
+      }
+
+      .j-dropdown-item {
+        display: block;
+        padding-bottom: var(--mb);
+        padding: 0 16px;
+        &:first-child { padding-top: var(--mb); }
+        &:last-child  { padding-bottom: var(--mb); }
+      }
+    }
+    .josh { margin: var(--mb) 0; }
+  }
+}

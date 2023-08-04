@@ -1,14 +1,254 @@
 <html>
   <head>
-    <style>
-      *, *::before, *::after  {
-        margin: 0;
-        padding: 0;
-        color: black;
-      }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Josh Holloway | Web Audio</title>
+    <!-- <link rel="stylesheet" href="/web-audio/012-save-project/css/index.css"> -->
+    <link rel="stylesheet" href="./css/index.css">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <!-- <script src="/assets/lib/Tone/Tone.js" defer></script> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- <script src="/assets/lib/gsap/gsap.min.js" defer></script> -->
+    
+    <!-- <script type="module" src="/web-audio/012-save-project/index.js"></script> -->
+    <script type="module" src="./index.js"></script>
+
   </head>
   <body>
-    <h1>JOSH</h1>
-  </body>
+
+    <main>
+
+      <div id="task-bar" style="display: flex; position: relative; z-index: 1;">
+
+        <div class="dropdown" id="task-bar__dropdown-file">
+          <buton class="j-dropdown-trigger">File</button>
+          <ul class="j-dropdown-menu">
+            <li class="j-dropdown-item">Save</li>
+            <li class="j-dropdown-item">Open</li>
+            <hr class="josh"/>
+            <li class="j-dropdown-item">Reset</li>
+          </ul>
+        </div>
+
+        <div class="dropdown">
+          <buton class="j-dropdown-trigger">Edit</button>
+          <ul class="j-dropdown-menu">
+            <li class="j-dropdown-item">Option 1</li>
+            <li class="j-dropdown-item">Option 2</li>
+            <hr class="josh"/>
+            <li class="j-dropdown-item">Option 3</li>
+          </ul>
+        </div>
+
+        <div class="dropdown">
+          <buton class="j-dropdown-trigger">Options</button>
+          <ul class="j-dropdown-menu">
+            <li class="j-dropdown-item">Option 1</li>
+            <li class="j-dropdown-item">Option 2</li>
+            <hr class="josh"/>
+            <li class="j-dropdown-item">Option 3</li>
+          </ul>
+        </div>
+
+        <div class="dropdown">
+          <buton class="j-dropdown-trigger">Patterns</button>
+          <ul class="j-dropdown-menu">
+            <li class="j-dropdown-item">Option 1</li>
+            <li class="j-dropdown-item">Option 2</li>
+            <hr class="josh"/>
+            <li class="j-dropdown-item">Option 3</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div id="top-bar">
+
+        <div class="master-knob-volume">
+          <div class="master-knob-volume-line"></div>
+        </div>
+
+        <div class="master-controls">
+          <button class="master-control master-control-play">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+              <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+            </svg>
+
+          </button> <!-- master-control-play -->
+
+          <button class="master-control master-control-stop" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stop-fill" viewBox="0 0 16 16">
+              <path d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z"/>
+            </svg>
+          </button> <!-- .master-control-stop -->
+          
+          <button class="master-control master-control-pause" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+              <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
+            </svg>
+          </button> <!-- .master-control-pause -->
+          
+        </div> <!-- .master-controls -->
+
+        <div class="bpm-display">
+          <span class="bpm-display-value">130</span>
+          <span class="bpm-display-units">BPM</span>
+
+          <div class="bpm-display-buttons">
+            <svg class="bpm-display-button-up" xmlns="http://www.w3.org/2000/svg" height="8" fill="currentColor" viewBox="0 0 16 16">
+              <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+            </svg>
+
+            <svg class="bpm-display-button-down" xmlns="http://www.w3.org/2000/svg" height="8" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="timing-display">
+          <span class="timing-display-bars">000</span>
+          <span> : </span>
+          <span class="timing-display-beats">0</span>
+          <span> : </span>
+          <span class="timing-display-count">0</span>
+
+          <!-- <span class="timing-display-units">Bar:Beat:Count</span> -->
+        </div>
+      </div> <!-- #top-bar -->
+
+      <div id="tracks">    
+
+        <div class="track track-0">
+
+          <div class="track-led-enable">
+            <div class="track-led-enable-inner"></div>
+          </div>
+
+          <div class="track-knob-volume">
+            <div class="track-knob-volume-line"></div>
+          </div>
+
+          <div class="track-lock">
+            <svg class="track-lock-icon-unlocked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2zM3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H3z"/>
+            </svg>
+            <svg class="track-lock-icon-locked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+            </svg>
+          </div>
+
+          <!-- <button class="track-title"></button> -->
+          <div class="track-title-container">
+            <label label="audio-input-0" id="audio-label-0" class="track-title"></label>
+            <input type="file" id="audio-input-0" accept="audio/*" />
+          </div>
+
+          <div class="steps">
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+          </div>
+        </div> <!-- .track -->
+
+        <div class="track track-1">
+          <div class="track-led-enable">
+            <div class="track-led-enable-inner"></div>
+          </div>
+          <div class="track-knob-volume">
+            <div class="track-knob-volume-line"></div>
+          </div>
+          <div class="track-lock">
+            <svg class="track-lock-icon-unlocked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2zM3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H3z"/>
+            </svg>
+            <svg class="track-lock-icon-locked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+            </svg>
+          </div>
+          <!-- <button class="track-title"></button> -->
+          <div class="track-title-container">
+            <label label="audio-input-1" id="audio-label-1" class="track-title"></label>
+            <input type="file" id="audio-input-1" accept="audio/*"/>
+          </div>
+
+          <div class="steps">
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+          </div>
+        </div> <!-- .track -->
+
+        <div class="track track-2">
+          <div class="track-led-enable">
+            <div class="track-led-enable-inner"></div>
+          </div>
+          <div class="track-knob-volume">
+            <div class="track-knob-volume-line"></div>
+          </div>
+          <div class="track-lock">
+            <svg class="track-lock-icon-unlocked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2zM3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H3z"/>
+            </svg>
+            <svg class="track-lock-icon-locked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+            </svg>
+          </div>
+          <!-- <button class="track-title"></button> -->
+          <div class="track-title-container">
+            <label label="audio-input-2" id="audio-label-2" class="track-title"></label>
+            <input type="file" id="audio-input-2" accept="audio/*"/>
+          </div>
+          <div class="steps">
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-A"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+            <div class="step step-B"></div>
+          </div>
+        </div> <!-- .track -->
+
+      </div> <!-- #tracks-->
+
+    </main>
+
+   </body>
 </html>

@@ -1,0 +1,373 @@
+@forward './scss/fonts';
+@use './scss/mixins' as *;
+
+// ==============================================
+
+// Components:
+@forward '../comps/dropdown';
+
+// ==============================================
+
+$border-1: solid 1px #252D31;
+$border-2: solid 1px #8B9396;
+$border-3: solid 1px #404B50;
+
+$grey-1: #5E696D;
+
+$light-grey-1: #C2C9CD;
+
+$green-1: #97E92F;
+
+$gradient-grey-1:    linear-gradient(0deg, rgb(73,80,84,)   0%, rgba(97,104,108, 1) 100%);
+$gradient-grey-1-on: linear-gradient(0deg, rgb(145,165,175) 0%, rgba(193,213,223,1) 100%);
+$gradient-grey-2:    linear-gradient(0deg, #252F34 0%, #3A4449 100%);
+
+$gradient-red-1:    linear-gradient(0deg, rgba(93,72,74,1)    0%, rgba(118,97,99,  1) 100%);
+$gradient-red-1-on: linear-gradient(0deg, rgba(195,140,144,1) 0%, rgba(245,190,195,1) 100%);
+
+$gradient-green-1: linear-gradient(0deg, #DCF7AB 0%, #6EDB00 100%);
+
+$gradient-green-led-on: $gradient-green-1;
+$gradient-led-off: linear-gradient(0deg, #70787B 0%, #4E5659 100%);
+
+// ==============================================
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+main {
+  border-radius: 5px;
+  overflow: hidden;
+  @include shadow(2);
+
+  width: fit-content;
+  margin: 0 auto;
+
+  // DEBUG:
+  // margin-top: 200px;
+  
+  // ==============================================
+
+  $pad: 24px;
+  #top-bar {
+    padding: calc(#{$pad} / 2) $pad;
+    background: $grey-1;
+    border-bottom: $border-3;
+    display: flex;
+    align-items: center;
+
+    // --------------------------------------------
+
+    $mr: 12px;
+    .master-knob-volume {
+      $sz: 15px;
+      height: $sz;
+      width: $sz;
+      background: $grey-1;
+      background: $gradient-grey-2;
+      border-radius: calc(#{$sz} / 2);
+      border: $border-1;
+      &-line {
+        height: 50%;
+        width: 1px;
+        background: $light-grey-1;
+        margin: 0 auto;
+        border-radius: 1px;
+      }
+      @include shadow(1);
+      margin-right: $mr;
+    }
+
+    // --------------------------------------------
+
+    .master-controls {
+      width: fit-content;
+      display: flex;
+
+      border-radius: 2px;
+      overflow: hidden;
+      border: $border-1;
+
+      .master-control {
+        all: unset;
+        background: $gradient-grey-2;
+        padding: 3px 4px;
+
+        svg { 
+          color: $light-grey-1;
+          height: 15px;
+        }
+
+        &-play  { border-right: $border-1; }
+        &-stop  { border-right: $border-1; }
+        &-pause {}
+
+        &:disabled {
+          opacity: 0.5;
+          pointer-events: none;
+        }
+      }
+      @include shadow(1);
+      margin-right: $mr;
+    }
+
+    // --------------------------------------------
+
+    .bpm-display {
+      // height: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 78px;
+      padding: 4px 0;
+      background: red;
+      border-radius: 2px;
+      border: solid #7B8E95 1px;
+      background: #BCCFD6;
+      user-select: none;
+
+      &-value {
+        font-size: 15px;
+        line-height: 1;
+        margin-right: 3px;
+      }
+
+      &-units {
+        font-size: 8px;
+        margin-top: auto;
+        margin-right: 6px;
+        margin-bottom: 3px;
+      }
+
+      &-buttons {
+        // outline: solid red 1px;
+        $w: 10px;
+        width: $w;
+        svg {
+          color: black;
+          height: $w;
+          cursor: pointer;
+        }
+      }
+      @include shadow(1);
+      margin-right: $mr;
+    }
+
+    // --------------------------------------------
+
+    .timing-display { 
+      // width: 50px;
+      padding: 4px 10px;
+      font-size: 15px;
+      user-select: none;
+      color: #D8F8F9;
+      background: #4F6666;
+      border: solid #3A5151 1px;
+      border-radius: 2px;
+      &-bars {}
+      &-beats {}
+      &-count {
+        // font-size: 10px;
+      }
+      // &-units {
+      //   font-size: 4px;
+      // }
+      @include shadow(1);
+    }
+
+    // --------------------------------------------
+  }
+
+  // ==============================================
+
+  #tracks {
+    border: solid $border-1 1px;
+    background: $grey-1;
+    padding: $pad;
+    
+    .track {
+      display: flex;
+      align-items: center;
+
+      $track-height: 40px;
+      $mr: 10px;
+
+      &-led-enable {
+        border: $border-2;
+        $sz: 12px;
+        height: $sz;
+        width: $sz;
+        border-radius: calc(#{$sz} / 2);
+        &-inner {
+          $sz2: calc(#{$sz} - 2px);
+          height: $sz2;
+          width: $sz2;
+          border-radius: calc(#{$sz2} / 2);
+          border: $border-1;
+          
+          // transition: background-color 0.2s ease-in-out; // gradient transitions not fully supported in CSS yet :(
+          background: $gradient-green-led-on;
+
+          &-line {
+            height: 50%;
+            width: 1px;
+            background: white;
+            margin: 0 auto;
+            border-radius: 1px;
+          }
+        } // &-inner
+        @include shadow(1);
+        margin-right: $mr;
+      } // &-led-enable
+
+      &-knob-volume {
+        $sz: 16px;
+        height: $sz;
+        width: $sz;
+        background: $grey-1;
+        background: $gradient-grey-1;
+        border-radius: calc(#{$sz} / 2);
+        border: $border-1;
+        &-line {
+          height: 50%;
+          width: 1px;
+          background: $light-grey-1;
+          margin: 0 auto;
+          border-radius: 1px;
+        }
+        @include shadow(1);
+        margin-right: $mr;
+      }
+
+      &-lock {
+        color: $light-grey-1;
+        margin-right: $mr;
+        .track-lock-icon-locked { display: none; }
+        .track-lock-icon-unlocked { display: inline-block; }
+      }
+
+      &-title-container { position: relative;
+
+        $w: 75px;
+        $rad: 3px;
+        label.track-title { 
+          display: inline-block; // ellipsis
+          // min-width: $w !important; // seems to be required on Safari - TODO: test this
+          width: $w;
+          // height: $track-height;
+
+          // ellipsis:
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          padding: 4px 14px;
+          font-size: 15px;
+          user-select: none;
+          color: white;
+          border-radius: $rad;
+          border: $border-1;
+          background: $gradient-grey-1;
+          @include shadow(1);
+          margin-right: $mr;
+        }
+
+        input { position: absolute; top: 0; left: 0;
+          height: 100%;
+          width: $w;
+
+          /* https://www.viget.com/articles/styling-native-file-upload-input-field/ */
+          &[type="file"]::file-selector-button {
+            height: 100%;
+            width: $w;
+            cursor: pointer;
+            font-size: 0px; /* hide: 'Choose File' */
+            background: transparent;
+            border: none;
+            border-radius: $rad;
+            transition: background-color 150ms ease-in-out;
+          }
+          &[type="file"]::file-selector-button:hover { 
+            background-color: rgba(145,165,175,0.25);
+          }
+          &[type="file"]::file-selector-button:active { 
+            background-color: rgba(145,165,175,0.5);
+          }
+        }
+      }
+
+      .steps {
+        display: inline-flex;
+        height: $track-height;
+
+        gap: 6px;
+        
+        .step {
+          width: 22px;
+
+          user-select: none;
+          font-size: 11px;
+
+          
+          border-radius: 3px;
+          border: solid 1px #252D31;
+          background: rgb(75,83,86);
+          color: white;
+          &-A {  
+            background: $gradient-grey-1;
+            &.step-on { background: $gradient-grey-1-on; }
+          }
+          &-B { 
+            background: $gradient-red-1;
+            &.step-on { background: $gradient-red-1-on; }
+          }
+          
+          transition: transform 0.1s;
+          &.current {
+            // material level 1:
+            // box-shadow: 0 1px 3px rgba(153, 233, 47, 0.12) , 0 1px 2px rgba(110, 219, 0, 0.24) ;
+
+            // material level 2:
+            box-shadow: 0 3px 6px rgba(151, 233, 47, 0.16), 0 3px 6px rgba(151, 233, 47, 0.23);
+            transform: scale(1.09);
+          }
+          @include shadow(1);
+        }
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+
+      &.track-locked {
+        .step { 
+          // opacity: 0.5;
+          pointer-events: none;
+          &.current {
+            box-shadow: 0 3px 6px rgba(255, 0, 47, 0.16), 0 3px 6px rgba(151, 233, 47, 0.23);
+            // box-shadow: 0 3px 6px red, 0 3px 6px rgba(151, 233, 47, 0.23) !important;
+            transform: scale(1.09);
+          }
+        }
+        .track-lock {
+          .track-lock-icon-locked { display: inline-block; }
+          .track-lock-icon-unlocked { display: none; }
+        }
+      }
+      &.track-disabled {
+        .step { opacity: 0.25; }
+        .track-led-enable-inner { background: $gradient-led-off; }
+      }
+    }
+  }
+
+  // ==============================================
+} // main
